@@ -3,31 +3,44 @@ class ScrambledDiary
     @contents = contents
   end
 
+  def scramble(action, steps)
+    # action will be a scramble or unscramble instance
+    @contents = action.scramble(@contents, steps)
+  end
+
+  def reverse(action)
+    @contents = action.reverse(@contents)
+  end
+
   def read
     @contents
   end
+end
 
-  def scramble_by_advancing_chars(steps)
-    plain_chars = @contents.chars
+class Scramble
+  def scramble(contents, steps)
+    plain_chars = contents.chars
     scrambled_chars = plain_chars.map do |char|
       (char.ord + steps).chr
     end
-    @contents = scrambled_chars.join
+    scrambled_chars.join
   end
 
-  def unscramble_by_advancing_chars(steps)
-    scrambled_chars = @contents.chars
-    plain_chars = scrambled_chars.map do |char|
+  def reverse(contents)
+    contents.reverse
+  end
+end
+
+class Unscramble
+  def scramble(contents, steps)
+    plain_chars = contents.chars
+    scrambled_chars = plain_chars.map do |char|
       (char.ord - steps).chr
     end
-    @contents = plain_chars.join
+    scrambled_chars.join
   end
 
-  def scramble_by_reversing
-    @contents = @contents.reverse
-  end
-
-  def unscramble_by_reversing
-    @contents = @contents.reverse
+  def reverse(contents)
+    contents.reverse
   end
 end
