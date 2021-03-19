@@ -1,8 +1,6 @@
 class ScrambledDiary
   def initialize(contents)
     @contents = contents
-    @scramble = Scramble.new
-    @unscramble = Unscramble.new
   end
 
   def scramble(action, steps)
